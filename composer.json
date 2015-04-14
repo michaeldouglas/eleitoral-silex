@@ -1,0 +1,40 @@
+{
+    "name": "eleitoral",
+    "description": "Sistema de cadastro eleitoral",
+    "keywords": ["Eleitoral"],
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": ">=5.4.0",
+        "silex/silex": "~1.2",
+        "twig/twig": "~1.0",
+        "symfony/form": "*",
+        "symfony/translation": "*",
+        "symfony/twig-bridge": "*",
+        "symfony/locale": "*",
+        "symfony/validator": "*",
+        "symfony/security": "*",
+        "monolog/monolog": "*",
+        "symfony/monolog-bridge": "*",
+        "symfony/config": "*"
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "biblioteca\\eleitoral\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Michael Douglas Barbosa Araujo",
+            "email": "michaeldouglas010790@gmail.com"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "minimum-stability": "stable"
+}
