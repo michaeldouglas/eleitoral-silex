@@ -1,8 +1,12 @@
 <?php
+
 #Chama as classes necessarias para utilização
 
 use Silex\Provider\MonologServiceProvider,
-    Silex\Provider\TwigServiceProvider;
+    Silex\Provider\TwigServiceProvider,
+    Silex\Provider\SecurityServiceProvider,
+    Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder,
+    Silex\Provider\UrlGeneratorServiceProvider;
 
 #config do sistema
 define('ROOT', dirname(__DIR__));
@@ -12,6 +16,9 @@ $loader = require ROOT . "/vendor/autoload.php";
 
 #Cria instancia objeto app Silex
 $app = new Silex\Application();
+
+#Registra o objeto para criação de URL
+$app->register(new UrlGeneratorServiceProvider());
 
 #ativa o debug
 $app['debug'] = true;
