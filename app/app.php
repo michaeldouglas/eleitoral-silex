@@ -1,5 +1,6 @@
 <?php
 #Chama as classes necessarias para utilização
+
 use Silex\Provider\MonologServiceProvider,
     Silex\Provider\TwigServiceProvider;
 
@@ -42,6 +43,8 @@ $app->register(new MonologServiceProvider(), [
     'monolog.name' => 'app',
     'monolog.level' => 300
 ]);
+
+$app->register(new Silex\Provider\DoctrineServiceProvider());
 
 require_once 'routes.php';
 
