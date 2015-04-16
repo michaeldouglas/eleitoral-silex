@@ -52,7 +52,11 @@ $app->register(new MonologServiceProvider(), [
 ]);
 
 $app->register(new Silex\Provider\DoctrineServiceProvider());
+$app->register(new \Silex\Provider\ServiceControllerServiceProvider());
+$app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
 
+#Chamada de arquivos necessarios
+require_once  __DIR__.'/services/services.php';
 require_once 'routes.php';
 
 #Retorna app para utilização

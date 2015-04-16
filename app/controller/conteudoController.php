@@ -2,31 +2,24 @@
 
 namespace app\Controller;
 
-use Silex\Application,
-    Silex\ControllerProviderInterface;
 
-class conteudoController implements ControllerProviderInterface
+class conteudoController
 {
-
-    public function connect(Application $app)
+    private $view;
+    
+    public function __construct(\Pimple $container)
     {
-        $indexController = $app['controllers_factory'];
-        $indexController->get("/", array($this, 'index'))->bind('homepage');
-        return $indexController;
-    }
-
-    public function index(Application $app)
-    {
-        $token = NULL;
-        if (empty($token)) {
-            return $app->redirect('login');
-        }
-        return $app['twig']->render('conteudo/home.tpl');
+        $this->view = $container['twig'];
     }
     
-    public function eleitoral(Application $app)
+    public function index()
     {
-        return $app['twig']->render('conteudo/home.tpl');
+        return $this->view->render('conteudo/home.tpl');
+    }
+    
+    public function eleitoral()
+    {
+        return $this->view->render('conteudo/home.tpl');
     }
     
 }
