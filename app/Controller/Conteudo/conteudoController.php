@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Controller;
+namespace app\Controller\Conteudo;
 
 
 class conteudoController

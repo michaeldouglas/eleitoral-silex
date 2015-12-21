@@ -1,12 +1,7 @@
 <?php
 
 #Chama as classes necessarias para utilização
-
-use Silex\Provider\MonologServiceProvider,
-    Silex\Provider\TwigServiceProvider,
-    Silex\Provider\SecurityServiceProvider,
-    Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder,
-    Silex\Provider\UrlGeneratorServiceProvider;
+use Silex\Provider\UrlGeneratorServiceProvider;
 
 #config do sistema
 define('ROOT', dirname(__DIR__));
@@ -20,8 +15,11 @@ $app = new Silex\Application();
 #Registra o objeto para criação de URL
 $app->register(new UrlGeneratorServiceProvider());
 
+#Configuração do dot env
+$app['env'] = (new \Dotenv\Dotenv(dirname(__DIR__)))->load();
+
 #ativa o debug
-$app['debug'] = true;
+$app['debug'] = getenv('debug');
 
 #cache
 $app->register(new Silex\Provider\HttpCacheServiceProvider(), ['http_cache.cache_dir' => ROOT . '/storage/temp/http']);
@@ -35,28 +33,19 @@ $app['autoloader'] = $app->share(function()use($loader) {
 $app['autoloader']->add("app", ROOT);
 
 #Registra a pasta de layout do sistema
-$app->register(new TwigServiceProvider(), array(
-    'twig.options' => [
-        'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
-        'strict_variables' => true
-    ],
-    'twig.form.templates' => array('form_div_layout.html.twig', 'layouts/layout.tpl'),
-    'twig.path' => array(ROOT . '/app/views/')
-));
+require_once ROOT . '/config/twig.php';
 
-#Armazena os logs de erro
-$app->register(new MonologServiceProvider(), [
-    'monolog.logfile' => ROOT . '/storage/log/app.log',
-    'monolog.name' => 'app',
-    'monolog.level' => 300
-]);
+//Configuração da base de dados
+require_once ROOT . '/config/monolog.php';
 
-$app->register(new Silex\Provider\DoctrineServiceProvider());
+//Configuração da base de dados
+require_once ROOT . '/config/database.php';
+
 $app->register(new \Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
 
 #Chamada de arquivos necessarios
-require_once  __DIR__.'/services/services.php';
+require_once __DIR__ . '/services/services.php';
 require_once 'routes.php';
 
 #Retorna app para utilização

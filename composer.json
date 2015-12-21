@@ -13,10 +13,23 @@
         "symfony/twig-bridge": "*",
         "symfony/locale": "*",
         "symfony/validator": "*",
-        "symfony/security": "*",
+        "symfony/security": "^3.0",
         "monolog/monolog": "*",
         "symfony/monolog-bridge": "*",
-        "symfony/config": "*"
+        "symfony/config": "*",
+        "doctrine/dbal": "~2.2",
+        "doctrine/orm"  : "*",
+        "doctrine/annotations": "*",
+        "vlucas/phpdotenv": "*",
+        "symfony/debug": "*",
+        "symfony/browser-kit": "2.3.*",
+        "symfony/class-loader": "2.3.*",
+        "symfony/console": "2.3.*",
+        "symfony/css-selector": "2.3.*",
+        "symfony/finder": "2.3.*",
+        "symfony/process": "2.3.*",
+        "symfony/doctrine-bridge": "2.3.*"
+        
 
     },
     "require-dev": {

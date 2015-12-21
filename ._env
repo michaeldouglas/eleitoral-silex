@@ -1,0 +1,7 @@
+HOST="10.10.100.57"
+DBNAME="admin_portal"
+USER="portal"
+PASSWORD="q1w2e3"
+CHARSET="utf8mb4"
+DEVMODE="false"
+GENERATEPROXYCLASSES="true"
