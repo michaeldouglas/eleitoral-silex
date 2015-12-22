@@ -21,17 +21,17 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 ));
     
 
-$paths = array("app/models/entities");
+$paths = array("app/Models/entities");
 $isDevMode = false;
 
 $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
 
 
-$driverImpl = $config->newDefaultAnnotationDriver('app/models/entities');
+$driverImpl = $config->newDefaultAnnotationDriver('app/Models/entities');
 $config->setMetadataDriverImpl($driverImpl);
 
-$config->setProxyDir('app/models/entities');
-$config->setProxyNamespace('app\models\entities');
+$config->setProxyDir('app/Models/entities');
+$config->setProxyNamespace('app\Models\entities');
 $config->setAutoGenerateProxyClasses(true);
 
 

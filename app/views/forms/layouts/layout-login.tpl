@@ -40,21 +40,20 @@
                         <h3 class="panel-title">Realizar Login</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form action="{{ path('sistema_login_check') }}" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="E-mail" name="_username" value="{{ last_username }}" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Senha" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Senha" name="_password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
                                         <input name="remember" type="checkbox" value="Lembrar-me">Lembrar-me
                                     </label>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="{{ app.request.basepath }}/eleitoral" class="btn btn-lg btn-success btn-block">Enviar</a>
+                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Enviar" />
                             </fieldset>
                         </form>
                     </div>

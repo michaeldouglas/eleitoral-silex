@@ -44,9 +44,29 @@ require_once ROOT . '/config/database.php';
 $app->register(new \Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
 
+$app->register(new Silex\Provider\SessionServiceProvider());
+
 #Chamada de arquivos necessarios
 require_once __DIR__ . '/services/services.php';
 require_once 'routes.php';
+
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'sistema' => array(
+            'pattern' => '^/',
+            'anonymous' => true,
+            'http' => true,
+            'form' => array('login_path' => '/login', 'check_path' => '/sistema/login_check'),
+            'logout' => array('logout_path' => '/logout', 'invalidate_session' => true),
+            'users' => $app->share(function() use ($app) {
+                return new app\Models\Usuarios\usuarios($app);
+            }),
+        ),
+    ),
+    'security.access_rules' => array(
+        array('^/sistema', 'ROLE_ADMIN')
+    )
+));
 
 #Retorna app para utilização
 return $app;

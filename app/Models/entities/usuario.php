@@ -21,4 +21,14 @@ class usuario
      * @Column(type="string", name="nm_usuario")
      */
     public $nm_usuario;
+    
+    /**
+     * @Column(type="string", name="nm_senha")
+     */
+    public $nm_senha;
+    
+    /**
+     * @Column(type="string", name="nm_roles")
+     */
+    public $nm_roles;
 }

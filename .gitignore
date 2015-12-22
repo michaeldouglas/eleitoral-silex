@@ -5,3 +5,4 @@ composer.lock
 ../.idea/
 .idea
 web/assets/bower_components
+storage/cache

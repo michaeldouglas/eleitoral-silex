@@ -2,24 +2,22 @@
 
 namespace app\Controller\Conteudo;
 
+use app\Controller\baseController;
 
-class conteudoController
+class conteudoController extends baseController 
 {
-    private $view;
-    
-    public function __construct(\Pimple $container)
-    {
-        $this->view = $container['twig'];
-    }
-    
+
     public function index()
     {
-        return $this->view->render('conteudo/home.tpl');
+        if ($this->app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
+            echo 'ADMIN BOLADÃO';
+        }
+        return $this->render('conteudo/home.tpl');
     }
     
     public function eleitoral()
     {
-        return $this->view->render('conteudo/home.tpl');
+        return $this->render('conteudo/home.tpl');
     }
     
 }
