@@ -11,54 +11,50 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 class usuarios implements UserProviderInterface
 {
     private $conn;
+    private $request;
     
-    public function __construct(\Pimple $container) 
+    public function __construct(\Pimple $container, $request) 
     {
         $this->conn = $container['db'];
         $this->app = $container;
+        $this->request = $request;
     }
     
     public function loadUserByUsername($usuario)
     {
-        $senha = $this->app['security.encoder.digest']->encodePassword(filter_input(INPUT_POST, '_password'), '');
-        $stmt = $this->conn->executeQuery('SELECT * FROM tb_usuario WHERE nm_usuario = ? and nm_senha = ?', array(
-            strtolower($usuario),
-            $senha
-            ));
-        $user = $stmt->fetch();
+        $senha = $this->app['security.encoder.digest']->encodePassword($this->request['senha'], '');
+        
+        $user = $this->fetchUserFromDatabase($usuario, $senha);
 
         if ($user == false) {
-            throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $usuario));
+            throw new UsernameNotFoundException(sprintf('Usuario "%s" não existe.', $usuario));
         }
-//        echo "<pre>";
-//        var_dump($user['nm_usuario']);
-//        var_dump($senha);
-//        var_dump($user);
-//        var_dump(explode(',', $user['nm_roles']));
         
-        $u = new User($user['nm_usuario'], $senha, explode(',', $user['nm_roles']), true, true, true, true);
-        
-//        echo "<pre>", print_r($u, 1), "<pre>";
-//        die;
-//        print $u->getSalt();
-//        print_r($u->getRoles());
-//        die;
-        return $u; 
+        return new User($user['nm_usuario'],$senha, explode(',', $user['nm_roles']), true, true, true, true); 
     }
-    
     
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
- 
-        return $this->loadUserByUsername($user->getUsername());
+        
+        return $user;
     }
  
     public function supportsClass($class)
     {
         return $class === 'Symfony\Component\Security\Core\User\User';
+    }
+    
+    protected function fetchUserFromDatabase($usuario, $senha)
+    {
+        $stmt = $this->conn->executeQuery(
+            'SELECT * FROM tb_usuario WHERE nm_usuario = ? and nm_senha = ?',
+            array(strtolower($usuario), $senha)
+        );
+        
+        return $stmt->fetch();
     }
     
 }

@@ -43,7 +43,7 @@
                         <form action="{{ path('sistema_login_check') }}" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="_username" value="{{ last_username }}" type="email" autofocus>
+                                    <input class="form-control" placeholder="E-mail" name="_username" value="{{ last_username }}" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Senha" name="_password" type="password" value="">

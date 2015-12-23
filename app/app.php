@@ -2,6 +2,7 @@
 
 #Chama as classes necessarias para utilização
 use Silex\Provider\UrlGeneratorServiceProvider;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 #config do sistema
 define('ROOT', dirname(__DIR__));
@@ -59,7 +60,8 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'form' => array('login_path' => '/login', 'check_path' => '/sistema/login_check'),
             'logout' => array('logout_path' => '/logout', 'invalidate_session' => true),
             'users' => $app->share(function() use ($app) {
-                return new app\Models\Usuarios\usuarios($app);
+                $requestPasword = ['senha' => filter_input(INPUT_POST, '_password')];
+                return new app\Models\Usuarios\usuarios($app, $requestPasword);
             }),
         ),
     ),
@@ -67,6 +69,10 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
         array('^/sistema', 'ROLE_ADMIN')
     )
 ));
+            
+$app['security.encoder.digest'] = $app->share(function ($app) {
+    return new MessageDigestPasswordEncoder('sha1', false, 1);
+});
 
 #Retorna app para utilização
 return $app;
