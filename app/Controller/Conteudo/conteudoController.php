@@ -9,10 +9,7 @@ class conteudoController extends baseController
 
     public function index()
     {
-        if ($this->app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
-            echo 'ADMIN BOLADÃO';
-        }
-        return $this->render('conteudo/home.tpl');
+       return  $this->app->redirect('/sistema');
     }
     
     public function eleitoral()

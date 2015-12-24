@@ -6,3 +6,4 @@ composer.lock
 .idea
 web/assets/bower_components
 storage/cache
+storage/log
