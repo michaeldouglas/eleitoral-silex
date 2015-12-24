@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="cms-admin" default="construir">
+    <property name="dir" value="./"/>
+    
+    <target name="construir">
+        <exec command="sudo su"/>
+        
+        <echo msg="Criando pastas necessárias para o projeto"/>
+        
+        <mkdir dir="${dir}storage"/>
+        <echo msg="Pasta ${dir}storage criada"/>
+        
+        <mkdir dir="${dir}storage/log"/>
+        <echo msg="Pasta ${dir}storage/log criada"/>
+        
+        <mkdir dir="${dir}storage/cache"/>
+        <echo msg="Pasta ${dir}storage/cache criada"/>
+        
+        <chmod mode="0777" verbose="true">
+            <fileset dir="${dir}">
+                <include name="./storage/**/*"/>
+            </fileset>
+        </chmod>
+        
+        <touch file=".env"/>
+    </target>
+</project>
