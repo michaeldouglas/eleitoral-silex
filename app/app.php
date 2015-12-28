@@ -47,7 +47,7 @@ $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 #Chamada de arquivos necessarios
-require_once __DIR__ . '/services/services.php';
+require_once __DIR__ . '/Services/services.php';
 require_once 'routes.php';
 
 #Configuração para a segurança da aplicação

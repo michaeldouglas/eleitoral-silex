@@ -3,7 +3,6 @@
     <property name="dir" value="./"/>
     
     <target name="construir">
-        <exec command="sudo su"/>
         
         <echo msg="Criando pastas necessárias para o projeto"/>
         
@@ -25,3 +24,4 @@
         <touch file=".env"/>
     </target>
 </project>
+

@@ -28,8 +28,8 @@
         "symfony/css-selector": "2.3.*",
         "symfony/finder": "2.3.*",
         "symfony/process": "2.3.*",
-        "symfony/doctrine-bridge": "2.3.*"
-        
+        "symfony/doctrine-bridge": "2.3.*",
+        "phing/phing": "2.*"
 
     },
     "require-dev": {
@@ -37,7 +37,7 @@
     },
     "autoload": {
         "psr-0": {
-            "biblioteca\\eleitoral\\": "src/"
+            "app\\": "app/"
         }
     },
     "authors": [

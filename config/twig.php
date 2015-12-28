@@ -8,5 +8,5 @@ $app->register(new TwigServiceProvider(), array(
         'strict_variables' => true
     ],
     'twig.form.templates' => array('layouts/layout.tpl'),
-    'twig.path' => array(ROOT . '/app/views/')
+    'twig.path' => array(ROOT . '/app/Views/')
 ));

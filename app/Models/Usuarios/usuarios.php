@@ -10,27 +10,27 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 class usuarios implements UserProviderInterface
 {
-    private $conn;
+    private $app;
     private $request;
     
     public function __construct(\Pimple $container, $request) 
     {
-        $this->conn = $container['db'];
         $this->app = $container;
         $this->request = $request;
     }
     
     public function loadUserByUsername($usuario)
     {
+        
         $senha = $this->app['security.encoder.digest']->encodePassword($this->request['senha'], '');
         
         $user = $this->fetchUserFromDatabase($usuario, $senha);
 
-        if ($user == false) {
+        if ($user == NULL) {
             throw new UsernameNotFoundException(sprintf('Usuario "%s" não existe.', $usuario));
         }
         
-        return new User($user['nm_usuario'],$senha, explode(',', $user['nm_roles']), true, true, true, true); 
+        return new User($user->getUser(), $senha, explode(',', $user->getRoles()), true, true, true, true); 
     }
     
     public function refreshUser(UserInterface $user)
@@ -49,12 +49,7 @@ class usuarios implements UserProviderInterface
     
     protected function fetchUserFromDatabase($usuario, $senha)
     {
-        $stmt = $this->conn->executeQuery(
-            'SELECT * FROM tb_usuario WHERE nm_usuario = ? and nm_senha = ?',
-            array(strtolower($usuario), $senha)
-        );
-        
-        return $stmt->fetch();
+        return $this->app['entityManager']->getRepository('app\Models\entities\usuario')
+        ->findOneBy(array('nm_usuario' => strtolower($usuario), 'nm_senha' => $senha));
     }
-    
 }

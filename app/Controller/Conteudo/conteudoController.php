@@ -14,7 +14,6 @@ class conteudoController extends baseController
     
     public function eleitoral()
     {
-        return $this->render('conteudo/home.tpl');
+        return $this->render('home');
     }
-    
 }

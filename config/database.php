@@ -36,3 +36,4 @@ $config->setAutoGenerateProxyClasses(true);
 
 
 $entityManager = EntityManager::create($app['dbs.options']['mysql'], $config);
+$app['entityManager'] = $entityManager;
