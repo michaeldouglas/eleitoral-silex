@@ -11,7 +11,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'logout' => array('logout_path' => '/logout', 'invalidate_session' => true),
             'users' => $app->share(function() use ($app) {
                 $requestPasword = ['senha' => filter_input(INPUT_POST, '_password')];
-                return new app\Models\Usuarios\usuarios($app, $requestPasword);
+                return new app\modules\adminportal\Models\Usuarios\Usuarios($app, $requestPasword);
             }),
         ),
     ),

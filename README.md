@@ -1,3 +1,3 @@
-## Silex e Doctrine2
+## Eleitoral
 
-Uma simple estrutura utilizando MVC e Doctrine 2 como ORM
+Sistema de cadastro eleitoral

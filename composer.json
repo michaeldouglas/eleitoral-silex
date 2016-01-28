@@ -29,8 +29,7 @@
         "symfony/finder": "2.3.*",
         "symfony/process": "2.3.*",
         "symfony/doctrine-bridge": "2.3.*",
-        "phing/phing": "2.*"
-
+        "doctrine/common": "2.5.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.*"
@@ -46,6 +45,12 @@
             "email": "michaeldouglas010790@gmail.com"
         }
     ],
+    "scripts": {
+        "phploc": "bin/phploc --log-csv storage/build/log.csv --progress . app/",
+        "phpcs": "bin/phpcs --report=summary app",
+        "phpcpd": "bin/phpcpd app",
+        "phpmetrics": "bin/phpmetrics --report-html=storage/build/metrics/report.html app/"
+    },
     "config": {
         "bin-dir": "bin/"
     },

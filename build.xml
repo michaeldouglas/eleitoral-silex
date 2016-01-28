@@ -9,19 +9,37 @@
         <mkdir dir="${dir}storage"/>
         <echo msg="Pasta ${dir}storage criada"/>
         
+         <mkdir dir="${dir}storage/build"/>
+         <echo msg="Pasta ${dir}build logs criada"/>
+         
+         <mkdir dir="${dir}storage/build/metrics"/>
+         <echo msg="Pasta ${dir}build logs criada"/>
+        
         <mkdir dir="${dir}storage/log"/>
         <echo msg="Pasta ${dir}storage/log criada"/>
         
         <mkdir dir="${dir}storage/cache"/>
         <echo msg="Pasta ${dir}storage/cache criada"/>
         
-        <chmod mode="0777" verbose="true">
+        <chmod mode="0777" verbose="rue">
             <fileset dir="${dir}">
                 <include name="./storage/**/*"/>
             </fileset>
         </chmod>
         
         <touch file=".env"/>
+    </target>
+    
+    <!-- Os comandos estão no arquivo composer.json -->
+    <target name="checkstyle">
+        <composer composer="bin/composer" command="phpcs"></composer>
+        <echo msg="Analise de padrão de código completa"/>
+        <composer composer="bin/composer" command="phpcpd"></composer>
+        <echo msg="Analise para detectar copy\past completa"/>
+        <composer composer="bin/composer" command="phpmetrics"></composer>
+        <echo msg="Analise da complexidade do código"/>
+        <composer composer="bin/composer" command="phploc"></composer>
+        <echo msg="Analise da complexidade do código"/>
     </target>
 </project>
 

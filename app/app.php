@@ -4,10 +4,11 @@
 use Silex\Provider\UrlGeneratorServiceProvider;
 
 #config do sistema
-define('ROOT', dirname(__DIR__));
+$directory = [];
+$directory['directoryROOT'] = dirname(__DIR__);
 
 #chamada do autoloader
-$loader = require ROOT . "/vendor/autoload.php";
+$loader = require $directory['directoryROOT'] . "/vendor/autoload.php";
 
 #Cria instancia objeto app Silex
 $app = new Silex\Application();
@@ -19,27 +20,28 @@ $app->register(new UrlGeneratorServiceProvider());
 $app['env'] = (new \Dotenv\Dotenv(dirname(__DIR__)))->load();
 
 #ativa o debug
-$app['debug'] = getenv('debug');
+$app['debug'] = true;
 
 #cache
-$app->register(new Silex\Provider\HttpCacheServiceProvider(), ['http_cache.cache_dir' => ROOT . '/storage/temp/http']);
+$app->register(new Silex\Provider\HttpCacheServiceProvider(), ['http_cache.cache_dir' =>
+    $directory['directoryROOT'] . '/storage/temp/http']);
 
 # autoloader
-$app['autoloader'] = $app->share(function()use($loader) {
+$app['autoloader'] = $app->share(function () use ($loader) {
     return $loader;
 });
 
 # Adiciona ao autoloader a chamada
-$app['autoloader']->add("app", ROOT);
+$app['autoloader']->add("app", $directory['directoryROOT']);
 
 #Registra a pasta de layout do sistema
-require_once ROOT . '/config/twig.php';
+require_once $directory['directoryROOT'] . '/config/twig.php';
 
 //Configuração da base de dados
-require_once ROOT . '/config/monolog.php';
+require_once $directory['directoryROOT'] . '/config/monolog.php';
 
 //Configuração da base de dados
-require_once ROOT . '/config/database.php';
+require_once $directory['directoryROOT'] . '/config/database.php';
 
 $app->register(new \Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
@@ -47,11 +49,11 @@ $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 #Chamada de arquivos necessarios
-require_once __DIR__ . '/Services/services.php';
-require_once 'routes.php';
+require_once __DIR__ . '/modules/adminportal/Services/services.php';
+require_once __DIR__.'/modules/adminportal/routes.php';
 
 #Configuração para a segurança da aplicação
-require_once ROOT . '/config/security.php';
+require_once $directory['directoryROOT'] . '/config/security.php';
 
 #Retorna app para utilização
 return $app;
